@@ -46,6 +46,11 @@ jobs:
           sed -i "s/^version:.*/version: ${{ steps.version.outputs.chart_version }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
           sed -i "s/^appVersion:.*/appVersion: ${{ steps.version.outputs.image_tag }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
 
+      - name: Set up Git user
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Release Helm Charts with Chart Releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
