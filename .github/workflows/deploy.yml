@@ -55,7 +55,7 @@ jobs:
           git config --global user.name "PascalIcatt"
 
       - name: Update Chart Dependencies
-        working-directory: .charts/autodeploydemoapp-umbrella-chart
+        working-directory: ./charts/autodeploydemoapp-umbrella-chart
         run: helm dependency update
       
       - name: Release Helm Charts with Chart Releaser
