@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   autodeploydemoapp:
   - apiVersion: v2
+    created: "2025-02-28T20:43:27.76631665Z"
+    dependencies:
+    - name: autodeploydemoapp.webapi
+      repository: file://../autodeploydemoapp-webapi-chart
+      version: 0.1.1
+    - name: autodeploydemoapp.cronjob
+      repository: file://../autodeploydemoapp-cronjob-chart
+      version: 0.1.0
+    description: Umbrella chart for AutoDeployDemoApp including Web API and CronJob
+    digest: 21992f4c167083db1b43c2a1ec2483150f55aae7a4178eee07d71c5e99a88b21
+    name: autodeploydemoapp
+    type: application
+    urls:
+    - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp-0.2.0/autodeploydemoapp-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2025-02-28T20:13:54.283383423Z"
     dependencies:
     - name: autodeploydemoapp.webapi
@@ -73,4 +89,4 @@ entries:
     urls:
     - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp.webapi-0.1.1/autodeploydemoapp.webapi-0.1.1.tgz
     version: 0.1.1
-generated: "2025-02-28T20:40:09.515970192Z"
+generated: "2025-02-28T20:43:27.76633812Z"
