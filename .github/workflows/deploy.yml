@@ -44,11 +44,6 @@ jobs:
           docker build -t ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }} -f AutoDeployDemoApp.CronJob/Dockerfile .
           docker push ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }}
 
-      - name: Bump Umbrella Chart Version
-        run: |
-          sed -i "s/^version:.*/version: ${{ steps.version.outputs.chart_version }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
-          sed -i "s/^appVersion:.*/appVersion: ${{ steps.version.outputs.image_tag }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
-
       - name: Set up Git user
         run: |
           git config --global user.email "pascal@icatt.nl"
