@@ -1,0 +1,4 @@
+charts:
+  - charts/autodeploydemoapp-umbrella-chart
+  - charts/autodeploydemoapp-webapi-chart
+  - charts/autodeploydemoapp-cronjob-chart

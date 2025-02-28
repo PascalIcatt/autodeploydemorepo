@@ -1,0 +1,57 @@
+name: Build, Push, and Deploy with Helm
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate version tag
+        id: version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$VERSION" ]; then
+            VERSION="0.0.1"
+          fi
+          COMMIT=$(git rev-parse --short HEAD)
+          IMAGE_TAG="${VERSION}-${COMMIT}"
+          echo "::set-output name=image_tag::${IMAGE_TAG}"
+          CHART_VERSION="${VERSION}-${GITHUB_RUN_NUMBER}"
+          echo "::set-output name=chart_version::${CHART_VERSION}"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_SECRET }}
+
+      - name: Build and push AutoDeployDemoApp.WebApi image
+        run: |
+          docker build -t ghcr.io/pascalicatt/autodeploydemoapp.webapi:${{ steps.version.outputs.image_tag }} -f AutoDeployDemoApp.WebApi/Dockerfile .
+          docker push ghcr.io/pascalicatt/autodeploydemoapp.webapi:${{ steps.version.outputs.image_tag }}
+
+      - name: Build and push AutoDeployDemoApp.CronJob image
+        run: |
+          docker build -t ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }} -f AutoDeployDemoApp.CronJob/Dockerfile .
+          docker push ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }}
+
+      - name: Bump Umbrella Chart Version
+        run: |
+          sed -i "s/^version:.*/version: ${{ steps.version.outputs.chart_version }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
+          sed -i "s/^appVersion:.*/appVersion: ${{ steps.version.outputs.image_tag }}/" charts/autodeploydemoapp-umbrella-chart/Chart.yaml
+
+      - name: Release Helm Charts with Chart Releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: ${{ secrets.PACKAGE_SECRET }}
+          CR_OWNER: ${{ github.repository_owner }}
+          CR_REPO: ${{ github.event.repository.name }}
+          CR_FORCE: "true"

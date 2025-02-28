@@ -1,0 +1,6 @@
+@AutoDeployDemoApp.WebApi_HostAddress = http://localhost:5103
+
+GET {{AutoDeployDemoApp.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
