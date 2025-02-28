@@ -1,0 +1,25 @@
+ingress:
+  enabled: true
+  host: myapp.example.com
+  port: 80
+
+certificates:
+  enabled: true
+  commonName: myapp.example.com
+
+service:
+  type: LoadBalancer
+
+appsettings:
+  webapi:
+    Setting1: "Value1"
+    Setting2: "Value2"
+  cronjob:
+    schedule: "0 0 * * *"
+    SettingA: "A"
+
+config:
+  globalSetting: "shared-value"
+
+secrets:
+  apiKey: "shared-api-key"

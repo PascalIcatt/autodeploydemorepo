@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: { { include "autodeploydemoapp.webapi.fullname" . } }
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: { { include "autodeploydemoapp.webapi.name" . } }
+  template:
+    metadata:
+      labels:
+        app: { { include "autodeploydemoapp.webapi.name" . } }
+    spec:
+      containers:
+        - name: autodeploydemoapp.webapi
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
