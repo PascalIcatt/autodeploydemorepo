@@ -1,0 +1,27 @@
+name: Build, Push, and Deploy with Helm
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Git user
+        run: |
+          git config --global user.email "pascal@icatt.nl"
+          git config --global user.name "PascalIcatt"
+      - name: Release Helm Charts with Chart Releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: ${{ secrets.PACKAGE_SECRET }}
+          CR_OWNER: ${{ github.repository_owner }}
+          CR_REPO: ${{ github.event.repository.name }}
+          CR_FORCE: "true"
