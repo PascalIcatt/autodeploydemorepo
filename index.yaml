@@ -51,4 +51,15 @@ entries:
     urls:
     - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp-0.0.1-5/autodeploydemoapp-0.0.1-5.tgz
     version: 0.0.1-5
-generated: "2025-02-28T20:13:54.283398601Z"
+  autodeploydemoapp.cronjob:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-02-28T20:27:35.968088495Z"
+    description: Helm chart for AutoDeployDemoApp.CronJob
+    digest: 6a724994d834175ad32e21bb272217a129b8ef75d5e7edf6c567960dcef6610e
+    name: autodeploydemoapp.cronjob
+    type: application
+    urls:
+    - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp.cronjob-0.1.0/autodeploydemoapp.cronjob-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-02-28T20:27:35.968108142Z"
