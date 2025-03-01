@@ -1,0 +1,36 @@
+name: Reusable Version Check
+
+on:
+  workflow_call:
+    inputs:
+      chart_path:
+        description: "Path to the Chart.yaml file"
+        required: true
+        type: string
+    outputs:
+      version_updated:
+        description: "Boolean indicating if the version was updated"
+        value: ${{ steps.check.outputs.version_updated }}
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    outputs:
+      version_updated: ${{ steps.check.outputs.version_updated }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          sudo wget https://github.com/mikefarah/yq/releases/download/v4.6.3/yq_linux_amd64 -O /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
+      - run: git fetch origin main
+      - id: check
+        run: |
+          CHART="${{ inputs.chart_path }}"
+          CUR_VER=$(yq '.version' $CHART)
+          MAIN_VER=$(git show origin/main:$CHART | yq '.version')
+          echo "Current: $CUR_VER, Main: $MAIN_VER"
+          if [ "$CUR_VER" != "$MAIN_VER" ]; then
+            echo "version_updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "version_updated=false" >> $GITHUB_OUTPUT
+          fi
