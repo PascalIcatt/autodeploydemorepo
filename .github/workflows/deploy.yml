@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Generate version tag
         id: version
@@ -49,13 +51,32 @@ jobs:
           git config --global user.email "pascal@icatt.nl"
           git config --global user.name "PascalIcatt"
 
+      - name: Get Version in PR Branch
+        id: pr-version
+        run: |
+          PR_VERSION=$(grep -oPm1 "(?<=<Version>)[^<]+" ./charts/autodeploydemoapp-umbrella-chart/Chart.yaml)
+          echo "pr_version=$PR_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Get Version in Main Branch
+        id: main-version
+        run: |
+          git fetch origin main
+          MAIN_VERSION=$(git show origin/main:./charts/autodeploydemoapp-umbrella-chart/Chart.yaml | grep -oPm1 "(?<=<Version>)[^<]+")
+          echo "main_version=$MAIN_VERSION" >> $GITHUB_OUTPUT
+          
       - name: Update Chart Dependencies
         working-directory: ./charts/autodeploydemoapp-umbrella-chart
-        run: helm dependency update
+        run: if [ "${{ steps.pr-version.outputs.pr_version }}" = "${{ steps.main-version.outputs.main_version }}" ]; then
+            echo "Umbrella Version has not been incremented."
+          else
+            echo "Umbrella Version has been incremented."
+            helm dependency update
+          fi
       
       - name: Release Helm Charts with Chart Releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
+          skip_existing: true
           charts_dir: charts
         env:
           CR_TOKEN: ${{ secrets.PACKAGE_SECRET }}
