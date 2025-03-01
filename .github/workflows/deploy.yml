@@ -1,4 +1,4 @@
-name: Build, Push, and Deploy with Helm
+name: Build, Push, and Deploy with Helm 
 
 on:
   push:
