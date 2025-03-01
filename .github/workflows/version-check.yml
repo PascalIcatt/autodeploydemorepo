@@ -8,9 +8,7 @@ on:
         required: true
         type: string
     outputs:
-      version_updated:
-        description: "Boolean indicating if the version was updated"
-        value: ${{ steps.check.outputs.version_updated }}
+      version_updated: ${{ jobs.version-check.outputs.version_updated }}
 
 jobs:
   version-check:
