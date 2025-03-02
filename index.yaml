@@ -67,6 +67,28 @@ entries:
     urls:
     - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp-0.0.1-5/autodeploydemoapp-0.0.1-5.tgz
     version: 0.0.1-5
+  autodeploydemoapp-cronjob:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2025-03-02T02:31:18.755849778Z"
+    description: Helm chart for AutoDeployDemoApp.CronJob
+    digest: 7ab8a6daa8a5276bc96120a519e371be9ebd0908603e4ef152da03ec57cb1833
+    name: autodeploydemoapp-cronjob
+    type: application
+    urls:
+    - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp-cronjob-0.1.1/autodeploydemoapp-cronjob-0.1.1.tgz
+    version: 0.1.1
+  autodeploydemoapp-webapi:
+  - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2025-03-02T02:31:18.833755762Z"
+    description: Helm chart for AutoDeployDemoApp.WebApi
+    digest: 7474eeb2955334f4d7dd4582caf59fa08a211609e5b45d407bde3495c03e4107
+    name: autodeploydemoapp-webapi
+    type: application
+    urls:
+    - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp-webapi-0.1.2/autodeploydemoapp-webapi-0.1.2.tgz
+    version: 0.1.2
   autodeploydemoapp.cronjob:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -89,4 +111,4 @@ entries:
     urls:
     - https://github.com/PascalIcatt/autodeploydemorepo/releases/download/autodeploydemoapp.webapi-0.1.1/autodeploydemoapp.webapi-0.1.1.tgz
     version: 0.1.1
-generated: "2025-02-28T20:43:27.76633812Z"
+generated: "2025-03-02T02:31:18.833777763Z"
