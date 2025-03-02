@@ -1,11 +1,14 @@
 ingress:
   enabled: true
-  host: myapp.example.com
+  host: autodeploydemoapp.local
   port: 80
 
 certificates:
   enabled: true
-  commonName: myapp.example.com
+  installClusterIssuer: false
+  issuerName: "selfsigned-issuer"  # use "letsencrypt-prod" in production
+  commonName: autodeploydemoapp.local
+  email: pascal@icatt.nl
 
 service:
   type: LoadBalancer
@@ -23,3 +26,9 @@ config:
 
 secrets:
   apiKey: "shared-api-key"
+
+autodeploydemoapp-webapi:
+  image:
+    repository: "ghcr.io/pascalicatt/autodeploydemoapp.webapi"
+    tag: "0.0.1-546f239"
+    pullPolicy: IfNotPresent
