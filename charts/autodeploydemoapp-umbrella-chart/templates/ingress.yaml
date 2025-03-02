@@ -2,8 +2,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "myapp.fullname" . }}-ingress
+  name: {{ include "autodeploydemoapp.fullname" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: {{ .Values.certificates.issuerName }}
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.certificates.commonName }}
+      secretName: {{ include "autodeploydemoapp.fullname" . }}-tls
   rules:
     - host: {{ .Values.ingress.host }}
       http:
@@ -12,7 +20,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "myapp.fullname" . }}-webapi-svc
+                name: {{ include "autodeploydemoapp.fullname" . }}-webapi-svc
                 port:
                   number: {{ .Values.ingress.port }}
 {{- end }}

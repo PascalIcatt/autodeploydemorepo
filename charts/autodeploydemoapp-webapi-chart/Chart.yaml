@@ -1,6 +1,6 @@
 apiVersion: v2
-name: autodeploydemoapp.webapi
+name: autodeploydemoapp-webapi
 description: Helm chart for AutoDeployDemoApp.WebApi
 type: application
-version: 0.1.1
-appVersion: 0.1.1
+version: 0.0.3
+appVersion: 0.0.3

@@ -2,13 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ include "myapp.fullname" . }}-cert
+  name: {{ include "autodeploydemoapp.fullname" . }}-cert
 spec:
-  secretName: {{ include "myapp.fullname" . }}-tls
+  secretName: {{ include "autodeploydemoapp.fullname" . }}-tls
   issuerRef:
-    name: letsencrypt-prod
+    name: {{ .Values.certificates.issuerName }}
     kind: ClusterIssuer
-  commonName: {{ .Values.certificates.commonName }}
   dnsNames:
     - {{ .Values.certificates.commonName }}
 {{- end }}
