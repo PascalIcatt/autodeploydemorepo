@@ -48,7 +48,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.PACKAGE_SECRET }}
+          
+      - name: Build and push AutoDeployDemoApp.WebApi image
+        run: |
+          docker build -t ghcr.io/pascalicatt/autodeploydemoapp.webapi:${{ steps.version.outputs.image_tag }} -f AutoDeployDemoApp.WebApi/Dockerfile .
+          docker push ghcr.io/pascalicatt/autodeploydemoapp.webapi:${{ steps.version.outputs.image_tag }}
 
+      - name: Build and push AutoDeployDemoApp.CronJob image
+        run: |
+          #docker build -t ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }} -f AutoDeployDemoApp.CronJob/Dockerfile .
+          docker push ghcr.io/pascalicatt/autodeploydemoapp.cronjob:${{ steps.version.outputs.image_tag }}
       - name: Set up Git user
         run: |
           git config --global user.email "pascal@icatt.nl"
@@ -58,4 +67,15 @@ jobs:
         if: needs.version-check.outputs.version_updated == 'true'
         working-directory: ./charts/autodeploydemoapp-umbrella-chart
         run: helm dependency update
+
+      - name: Release Helm Charts with Chart Releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          skip_existing: true
+          charts_dir: charts
+        env:
+          CR_TOKEN: ${{ secrets.PACKAGE_SECRET }}
+          CR_OWNER: ${{ github.repository_owner }}
+          CR_REPO: ${{ github.event.repository.name }}
+          CR_FORCE: "true"
       
