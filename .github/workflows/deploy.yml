@@ -44,6 +44,9 @@ jobs:
       
       - name: Update chart values with new image tag
         run: |
+          echo "needtag = ${{ needs.version-check.outputs.version }}"
+          echo "newtag = strenv(NEW_IMAGE_TAG)"
+          echo "steptag = ${{ steps.version.outputs.version }}"
           yq eval '.autodeploydemoapp-webapi.image.tag = strenv(NEW_IMAGE_TAG)' -i charts/autodeploydemoapp-umbrella-chart/values.yaml
         env:
           NEW_IMAGE_TAG: ${{ steps.version.outputs.version }}
