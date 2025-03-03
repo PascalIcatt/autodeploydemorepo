@@ -34,4 +34,4 @@ autodeploydemoapp-cronjob:
     tag: "0.0.1-546f239"
     pullPolicy: Always
   appsettings:
-    CronJobMessage: "Umbrella chart value"
+    cronJobMessage: "Umbrella chart value"
