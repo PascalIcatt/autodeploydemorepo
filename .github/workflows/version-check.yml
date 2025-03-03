@@ -32,4 +32,5 @@ jobs:
             echo "version_updated=false" >> $GITHUB_ENV
           fi
       - id: set_output
-        run: echo "version_updated=${{ env.version_updated }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "version_updated=${{ env.version_updated }}" >> $GITHUB_OUTPUT
