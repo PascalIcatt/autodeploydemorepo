@@ -24,7 +24,8 @@ jobs:
           CHART="${{ inputs.chart_path }}"
           CUR_VER=$(yq eval '.version' $CHART)
           MAIN_VER=$(git show origin/main:$CHART | yq eval '.version' -)
-          echo "Current: $CUR_VER, Main: $MAIN_VER"
+          echo "Current: $CUR_VER, Main: $MAIN_VER" 
+          echo "version=$CUR_VER" >> $GITHUB_OUTPUT
           if [ "$CUR_VER" != "$MAIN_VER" ]; then
             echo "version_updated=true" >> $GITHUB_ENV
           else
