@@ -5,8 +5,13 @@ metadata:
 data:
   appsettings.json: |-
     {
-      "WebApi": {
-        "Setting1": "{{ .Values.appsettings.setting1 }}",
-        "Setting2": "{{ .Values.appsettings.setting2 }}"
-      }
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "AllowedHosts": "*",
+      "Setting1": "{{ .Values.appsettings.setting1 }}",
+      "Setting2": "{{ .Values.appsettings.setting2 }}"
     }

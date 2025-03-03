@@ -6,7 +6,7 @@ ingress:
 certificates:
   enabled: true
   installClusterIssuer: false
-  issuerName: "selfsigned-issuer"  # use "letsencrypt-prod" in production
+  issuerName: "selfsigned-issuer"  # use "letsencrypt-prod" in staging/production
   commonName: autodeploydemoapp.local
   email: pascal@icatt.nl
 
@@ -22,16 +22,16 @@ secrets:
 autodeploydemoapp-webapi:
   image:
     repository: "ghcr.io/pascalicatt/autodeploydemoapp.webapi"
-    tag: "0.0.1-546f239"
+    tag: "0.0.1-546f239" # deploy overwrites this tag automatically
     pullPolicy: Always
   appsettings:
-    setting1: "Value1"
-    setting2: "Value2"
+    setting1: "Umbrella chart setting1 value"
+    setting2: "Umbrella chart setting2 value"
     
 autodeploydemoapp-cronjob:
   image:
     repository: "ghcr.io/pascalicatt/autodeploydemoapp.cronjob"
-    tag: "0.0.1-546f239"
+    tag: "0.0.1-546f239" # deploy overwrites this tag automatically
     pullPolicy: Always
   appsettings:
     cronJobMessage: "Umbrella chart value"
