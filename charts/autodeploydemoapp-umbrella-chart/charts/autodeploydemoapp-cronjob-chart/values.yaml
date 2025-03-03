@@ -3,4 +3,5 @@ image:
   repository: ghcr.io/pascalicatt/autodeploydemoapp.cronjob
   tag: 0.0.1-546f239
   pullPolicy: Always
-cronJobMessage: "testbericht uit helm values"
+appsettings:
+  cronJobMessage: "testbericht uit helm cronjob values"
