@@ -7,6 +7,13 @@ on:
         description: "Path to the Chart.yaml file"
         required: true
         type: string
+    outputs:
+      version: 
+        description: "Umbrella chart version"
+        value: ${{ jobs.version-check.outputs.version }}
+      version_updated: 
+        description: "Is the version updated or not"
+        value: ${{ jobs.version-check.outputs.version_updated }}
 
 jobs:
   version-check:
