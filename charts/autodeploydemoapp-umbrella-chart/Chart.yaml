@@ -8,5 +8,5 @@ dependencies:
     version: 0.1.5
     repository: file://charts/autodeploydemoapp-webapi-chart
   - name: autodeploydemoapp-cronjob
-    version: 0.2.1
+    version: 0.2.2
     repository: file://charts/autodeploydemoapp-cronjob-chart
