@@ -12,4 +12,12 @@ spec:
             - name: autodeploydemoapp-cronjob
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              volumeMounts:
+          - name: appsettings-volume
+            mountPath: /app/appsettings.json
+            subPath: appsettings.json
+      volumes:
+        - name: appsettings-volume
+          configMap:
+            name: {{ include "autodeploydemoapp.cronjob.fullname" . }}-appsettings";
           restartPolicy: OnFailure

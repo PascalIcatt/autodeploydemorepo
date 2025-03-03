@@ -2,3 +2,6 @@ image:
   repository: "ghcr.io/pascalicatt/autodeploydemoapp.webapi"
   tag: "0.0.1-546f239"
   pullPolicy: IfNotPresent
+appsettings:
+  setting1: "valueForSetting1"
+  setting2: "valueForSetting2"
