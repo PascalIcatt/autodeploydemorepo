@@ -2,11 +2,11 @@ apiVersion: v2
 name: autodeploydemoapp
 description: Umbrella chart for AutoDeployDemoApp including Web API and CronJob
 type: application
-version: 3.0.1
+version: 3.0.2
 dependencies:
   - name: autodeploydemoapp-webapi
-    version: 0.1.4
+    version: 0.1.5
     repository: file://charts/autodeploydemoapp-webapi-chart
   - name: autodeploydemoapp-cronjob
-    version: 0.2.0
+    version: 0.2.1
     repository: file://charts/autodeploydemoapp-cronjob-chart

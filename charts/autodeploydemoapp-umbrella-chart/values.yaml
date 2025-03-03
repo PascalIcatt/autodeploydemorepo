@@ -29,5 +29,9 @@ autodeploydemoapp-webapi:
     setting2: "Value2"
     
 autodeploydemoapp-cronjob:
+  image:
+    repository: "ghcr.io/pascalicatt/autodeploydemoapp.cronjob"
+    tag: "0.0.1-546f239"
+    pullPolicy: Always
   appsettings:
     CronJobMessage: "Umbrella chart value"
