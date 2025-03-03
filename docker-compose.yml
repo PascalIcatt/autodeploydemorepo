@@ -1,0 +1,7 @@
+services:
+  website:
+    build: 
+      context: .
+      dockerfile: AutoDeployDemoApp.WebApi/Dockerfile
+    ports:
+    - 8080:8080
