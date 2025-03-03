@@ -13,14 +13,6 @@ certificates:
 service:
   type: LoadBalancer
 
-appsettings:
-  webapi:
-    Setting1: "Value1"
-    Setting2: "Value2"
-  cronjob:
-    schedule: "0 0 * * *"
-    SettingA: "A"
-
 config:
   globalSetting: "shared-value"
 
@@ -31,4 +23,11 @@ autodeploydemoapp-webapi:
   image:
     repository: "ghcr.io/pascalicatt/autodeploydemoapp.webapi"
     tag: "0.0.1-546f239"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
+  appsettings:
+    setting1: "Value1"
+    setting2: "Value2"
+    
+autodeploydemoapp-cronjob:
+  appsettings:
+    CronJobMessage: "Umbrella chart value"

@@ -18,3 +18,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
+          volumeMounts:
+          - name: appsettings-volume
+            mountPath: /app/appsettings.json
+            subPath: appsettings.json
+      volumes:
+        - name: appsettings-volume
+          configMap:
+            name: {{ include "autodeploydemoapp.webapi.fullname" . }}-appsettings";
