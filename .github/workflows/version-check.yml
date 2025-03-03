@@ -25,10 +25,7 @@ jobs:
           CUR_VER=$(yq eval '.version' $CHART)
           MAIN_VER=$(git show origin/main:$CHART | yq eval '.version' -)
           echo "Current: $CUR_VER, Main: $MAIN_VER"
-          if [ "$CUR_VER" != "$MAIN_VER" ]; then
-            echo "version_updated=true" >> $GITHUB_ENV
-          else
-            echo "version_updated=false" >> $GITHUB_ENV
-          fi
       - id: set_output
-        run: echo "version_updated=${{ env.version_updated }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "version_updated=[ "$CUR_VER" != "$MAIN_VER" ] >> $GITHUB_OUTPUT
+          echo "version=$CUR_VER >> $GITHUB_OUTPU

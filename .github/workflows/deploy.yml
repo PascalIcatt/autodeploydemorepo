@@ -32,15 +32,25 @@ jobs:
       - name: Generate version tag
         id: version
         run: |
-          VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          VERSION=$needs.version-check.outputs.version
           if [ -z "$VERSION" ]; then
             VERSION="0.0.1"
           fi
           COMMIT=$(git rev-parse --short HEAD)
           IMAGE_TAG="${VERSION}-${COMMIT}"
           echo "::set-output name=image_tag::${IMAGE_TAG}"
-          CHART_VERSION="${VERSION}-${GITHUB_RUN_NUMBER}"
-          echo "::set-output name=chart_version::${CHART_VERSION}"
+          echo "::set-output name=version::${VERSION}"
+
+      - name: Install yq
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+      
+      - name: Update chart values with new image tag
+        run: |
+          yq eval '.autodeploydemoapp-webapi.image.tag = strenv(NEW_IMAGE_TAG)' -i charts/autodeploydemoapp-umbrella-chart/values.yaml
+        env:
+          NEW_IMAGE_TAG: ${{ steps.version.outputs.version }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
