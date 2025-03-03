@@ -12,6 +12,7 @@ jobs:
   version-check:
     runs-on: ubuntu-latest
     outputs:
+      version: ${{ steps.set_output.outputs.version }}
       version_updated: ${{ steps.set_output.outputs.version_updated }}
     steps:
       - uses: actions/checkout@v3
