@@ -33,9 +33,11 @@ jobs:
         id: version
         run: |
           VERSION=$needs.version-check.outputs.version
+          echo "Version: $VERSION"
           if [ -z "$VERSION" ]; then
             VERSION="0.0.1"
           fi
+          echo "Version: $VERSION"
           COMMIT=$(git rev-parse --short HEAD)
           IMAGE_TAG="${VERSION}-${COMMIT}"
           echo "::set-output name=image_tag::${IMAGE_TAG}"
