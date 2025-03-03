@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yTLKKotXQRI=",
+  "dgSpecHash": "B95BdzVrX4E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pascal.ICATT\\source\\repos\\DeploymentAutomation\\bin\\Debug\\net8.0\\AutoDeployDemoApp\\AutoDeployDemoApp.WebApi\\AutoDeployDemoApp.WebApi.csproj",
+  "projectFilePath": "C:\\repos\\autodeploydemorepo\\AutoDeployDemoApp.WebApi\\AutoDeployDemoApp.WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pascal.ICATT\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.8\\microsoft.aspnetcore.openapi.8.0.8.nupkg.sha512",
     "C:\\Users\\Pascal.ICATT\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
